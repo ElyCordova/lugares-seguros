@@ -8,6 +8,6 @@ public class HelloWorld {
 
     @GetMapping("/") /*aquí le decimos cuál es la ruta*/
     public String index(){
-        return "Hello World desde un endpoint!";
+        return "Hello World";
     }
 }
