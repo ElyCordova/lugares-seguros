@@ -17,9 +17,10 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -38,7 +39,6 @@
         </plugins>
     </build>
 
-    //Copiado de https://www.baeldung.com/spring-profiles 4.6 Maven profiles
     <profiles>
         <profile>
             <id>dev</id>
@@ -48,6 +48,14 @@
             <properties>
                 <maven.profiles.active>dev</maven.profiles.active>
             </properties>
+            <dependencies>
+                <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                </dependency>
+
+            </dependencies>
         </profile>
         <profile>
             <id>prod</id>
