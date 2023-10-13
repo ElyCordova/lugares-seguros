@@ -2,17 +2,19 @@ package com.example.lugaresseguros.services;
 
 import com.example.lugaresseguros.models.PlaceModel;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public interface PlaceService {
-    public String getHello();
 
-    public String getHello(String name);
+    public PlaceModel createPlace(PlaceModel place);
 
+    public List<PlaceModel> getAllPlaces();
 
-    void createPlace(PlaceModel place);
+    public Optional<PlaceModel> updatePlaceByID(Long id, PlaceModel place);
 
-    void updatePlace(String id, PlaceModel place);
+    Boolean deletePLaceByID(Long id);
 
-    Collection<PlaceModel> getPlace();
+    public Boolean deletePlaceByID(Long id);
+
 }

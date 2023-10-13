@@ -1,45 +1,59 @@
 package com.example.lugaresseguros.services;
 import com.example.lugaresseguros.models.PlaceModel;
+import com.example.lugaresseguros.repositories.PlaceJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlaceServiceImpl implements PlaceService {
-    private static Map<String, PlaceModel> placeRepo = new HashMap<String, PlaceModel>();
-    static {
-        PlaceModel brasil = new PlaceModel( "1", "Brasil");
-        placeRepo.put(brasil.getId(), brasil);
-        PlaceModel mexico = new PlaceModel( "2", "Mexico");
-        placeRepo.put(mexico.getId(), mexico);
 
-    }
+    @Autowired //genera beans//
+    private PlaceJpaRepository repository;
+
     @Override
-    public String getHello(){
-        return "Hello world desde un servicio";
+    public PlaceModel createPlace(PlaceModel place) {
+        return repository.save(place);
     }
 
     @Override
-    public String getHello(String name) {
-        return "Hello " + name;
+    public List<PlaceModel> getAllPlaces() {
+        return repository.findAll();
     }
 
     @Override
-    public void createPlace(PlaceModel place) {
-        placeRepo.put(place.getId(), place);
+    public Optional<PlaceModel> updatePlaceByID(Long id, PlaceModel placeReceived) {
+        return repository.findById(id)
+                .map(placeFound -> {
+                    placeFound.setName(placeReceived.getName());
+                    placeFound.setDescription(placeReceived.getDescription());
+                    placeFound.setAddress_state(placeReceived.getAddress_state());
+                    placeFound.setAddress_city(placeReceived.getAddress_city());
+                    placeFound.setAddress_colonia(placeReceived.getAddress_colonia());
+                    placeFound.setAddress_street(placeReceived.getAddress_street());
+                    placeFound.setAddress_zipcode(placeReceived.getAddress_zipcode());
+
+                    return repository.save(placeFound);
+                });
     }
 
     @Override
-    public void updatePlace(String id, PlaceModel place) {
-        placeRepo.remove(id);
-        place.setId(id);
-        placeRepo.put(id, place);
+    public Boolean deletePLaceByID(Long id) {
+        return null;
     }
 
     @Override
-    public Collection<PlaceModel> getPlace() {
-        return  placeRepo.values();
+    public Boolean deletePlaceByID(Long id) {
+        repository.deleteById(id);
+        return repository.findById(id)
+                .map(placeFound -> {
+                    return false;
+                })
+                .orElseGet(() -> {
+                    return true;
+                });
     }
+
 }

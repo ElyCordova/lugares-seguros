@@ -3,28 +3,45 @@ package com.example.lugaresseguros.controllers;
 import com.example.lugaresseguros.models.PlaceModel;
 import com.example.lugaresseguros.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("places")/*renombrando el end point con places*/
+@RequestMapping("places")/*end point llamado places*/
 public class PlaceServiceController {
 
     @Autowired
     PlaceService placeService;
-    @GetMapping("/") /*aquí le decimos cuál es la ruta*/
-    public Collection<PlaceModel> index(){
-        return placeService.getPlace();
+
+    //Create place
+    @PostMapping
+    public PlaceModel createPlaceController(@RequestBody PlaceModel place) {
+        return placeService.createPlace(place);
     }
 
-    @GetMapping("/{name}") /*aquí le decimos cuál es la ruta*/
-    public String getHello(@PathVariable("name") String name){
-
-        return placeService.getHello(name);
+    //Retrieve all places
+    @GetMapping
+    public List<PlaceModel> getAllPlacesController() {
+        return placeService.getAllPlaces();
     }
+
+    //Update place by ID
+    @PatchMapping("/{id}")
+    public Optional <PlaceModel> updatePlaceController(@PathVariable Long id, @RequestBody PlaceModel request) {
+        return placeService.updatePlaceByID(id, request);
+    }
+
+    //Delete place by ID
+    @DeleteMapping("/{id}")
+    public String deletePlaceController(@PathVariable Long id) {
+        if(placeService.deletePlaceByID(id)){
+            return "Place deleted successfully";
+        }else{
+            return "Error";
+        }
+    }
+
 }
 
