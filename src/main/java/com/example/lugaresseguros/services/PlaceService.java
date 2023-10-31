@@ -17,4 +17,6 @@ public interface PlaceService {
 
     public Boolean deletePlaceByID(Long id);
 
+    public Optional<PlaceModel> savePlaceUrlImage(Long id, PlaceModel place);
+
 }

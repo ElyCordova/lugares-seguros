@@ -55,5 +55,13 @@ public class PlaceServiceImpl implements PlaceService {
                     return true;
                 });
     }
-
+    @Override
+    public Optional<PlaceModel> savePlaceUrlImage(Long id, PlaceModel place){
+        String imageUrlReceived = place.getUrl();
+        return repository.findById(id)
+                .map(placeFound -> {
+                    placeFound.setUrl(imageUrlReceived);
+                    return repository.save(placeFound);
+                });
+    }
 }

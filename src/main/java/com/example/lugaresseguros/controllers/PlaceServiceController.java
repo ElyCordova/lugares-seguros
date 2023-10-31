@@ -43,5 +43,11 @@ public class PlaceServiceController {
         }
     }
 
+    //Save a URL image to a place by ID
+    @PostMapping("/{id}/image")
+    public Optional<PlaceModel> savePlaceUrlImageController(@PathVariable Long id, @RequestBody PlaceModel request){
+        return placeService.savePlaceUrlImage(id, request); //método que recibe el id y request
+    }
+
 }
 

@@ -15,6 +15,8 @@ public class PlaceModel {
     private String address_colonia;
     private String address_street;
     private String address_zipcode;
+    @Column(name = "image")
+    private String url;
 
 
     public PlaceModel() {
@@ -33,6 +35,12 @@ public class PlaceModel {
         this.address_colonia = address_colonia;
         this.address_street = address_street;
         this.address_zipcode = address_zipcode;
+    }
+
+    public PlaceModel(Long id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
 
     public Long getId() {
@@ -97,6 +105,14 @@ public class PlaceModel {
 
     public void setAddress_zipcode(String address_zipcode) {
         this.address_zipcode = address_zipcode;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
